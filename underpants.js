@@ -20,7 +20,15 @@ var _ = {};
 *   _.identity(5) === 5
 *   _.identity({a: "b"}) === {a: "b"}
 */
+/* 
+I:takes a value
+O: return value unchanged
+*/
 
+_.identity = function(value) {
+//return value
+return value;
+}
 
 /** _.typeOf
 * Arguments:
@@ -41,7 +49,21 @@ var _ = {};
 * _.typeOf("javascript") -> "string"
 * _.typeOf([1,2,3]) -> "array"
 */
-
+/* 
+I: takes in a value
+O: Return type of value as a string
+*/
+_.typeOf = function(value) {
+    //if value is an array, return "array"
+ if (Array.isArray(value)) {
+    return "array";
+ }
+ //if value equals null, return "null"
+ if (value === null) {
+    return "null";
+ }//return typeof value
+ return typeof value;
+}
 
 /** _.first
 * Arguments:
@@ -60,7 +82,16 @@ var _ = {};
 *   _.first(["a", "b", "c"], 1) -> "a"
 *   _.first(["a", "b", "c"], 2) -> ["a", "b"]
 */
+/*
+ I: takes in an array and a number 
+ O: return [] if <array> is not an array, first element in <array> if <number> is not given or a number 
+ */
 
+_.first = function(array, number) {
+    if (array) {
+        return array[0];
+    }
+}
 
 /** _.last
 * Arguments:
@@ -157,6 +188,24 @@ var _ = {};
 * Extra Credit:
 *   use _.each in your implementation
 */
+/* 
+I: takes in an array and function
+O: return a new array
+*/
+
+_.filter = function(array, func){
+    //declare output array
+    let output = [];
+    //for loop to iterate through array
+for (let i = 0; i < array.length; i++) {
+    //if result of invoking func is truthy, put array[i] into output
+if (func(array[i], i, array)){
+    output.push(array[i]);
+}
+}
+//return output
+return output;
+}
 
 
 /** _.reject
