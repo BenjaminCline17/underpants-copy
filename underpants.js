@@ -88,9 +88,17 @@ _.typeOf = function(value) {
  */
 
 _.first = function(array, number) {
-    if (array) {
+    //if array is not an array, return []
+    if (!Array.isArray(array)) {
+       return [];
+    }//if typeof number is not "number", return array[0]
+    if (typeof number !== "number") {
         return array[0];
-    }
+    } //if number is less than 0, return []
+    if (number < 0) {
+        return [];
+    }//return array.slice(0, number)
+    return array.slice(0, number);
 }
 
 /** _.last
@@ -111,6 +119,19 @@ _.first = function(array, number) {
 *   _.last(["a", "b", "c"], 2) -> ["b", "c"]
 */
 
+_.last = function(array, number) {
+    //if array is not an array, return a empty array
+    if (!Array.isArray(array)) {
+        return [];
+        //if typeof number does not equal "number", return last index of array
+    } if (typeof number !== "number"){
+        return array[array.length - 1];
+        //if number is less than 0, return a empty array
+    } if (number < 0) {
+        return [];
+    } //return array.slice(-number)
+    return array.slice(-number);
+}
 
 /** _.indexOf
 * Arguments:
@@ -128,6 +149,16 @@ _.first = function(array, number) {
 *   _.indexOf(["a","b","c"], "d") -> -1
 */
 
+_.indexOf = function(array, value) {
+    //for loop to iterate through array
+    for (let i = 0; i < array.length; i++) {
+        //if the index of array equals value, return index
+        if (array[i] == value) {
+            return i;
+        }
+        //return -1 if value is not found
+    } return -1;
+}
 
 /** _.contains
 * Arguments:
@@ -144,6 +175,10 @@ _.first = function(array, number) {
 *   _.contains([1,"two", 3.14], "two") -> true
 */
 
+_.contains = function(array, value) {
+    //return array.some to test if <array> contains <value> using the ternary operator
+    return array.some(item => item === value) ? true : false;
+}
 
 /** _.each
 * Arguments:
@@ -161,6 +196,9 @@ _.first = function(array, number) {
 *      -> should log "a" "b" "c" to the console
 */
 
+_.each = function(collection, func) {
+
+}
 
 /** _.unique
 * Arguments:
