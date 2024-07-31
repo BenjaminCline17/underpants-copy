@@ -197,7 +197,17 @@ _.contains = function(array, value) {
 */
 
 _.each = function(collection, func) {
-
+    //if collection is an array, iterate through collection and call func on collection[i], i, collection
+ if (Array.isArray(collection)) {
+    for (let i = 0; i < collection.length; i++)
+    func(collection[i], i, collection);
+ }
+ //if typeof collection equal "object" and collection is not an array, iterate collection and call func on collection[keys], keys, collection
+ if (typeof collection === "object" && !Array.isArray(collection)) {
+    for (let keys in collection) {
+     func(collection[keys], keys, collection);
+    }
+ }
 }
 
 /** _.unique
@@ -209,6 +219,18 @@ _.each = function(collection, func) {
 * Examples:
 *   _.unique([1,2,2,4,5,6,5,2]) -> [1,2,4,5,6]
 */
+
+_.unique = function(array) {
+    //declare output as empty array
+    let output = [];
+    //iterate through array using a for loop
+ for (let i = 0; i < array.length; i++) {
+//if _.indexOf(output, array[i]) equals -1, push array[i] into output
+ if (_.indexOf(output, array[i]) === -1) {
+    output.push(array[i]);
+ } //return output;
+ } return output;
+}
 
 
 /** _.filter
@@ -259,6 +281,18 @@ return output;
 *   _.reject([1,2,3,4,5], function(e){return e%2 === 0}) -> [1,3,5]
 */
 
+_.reject = function(array, func) {
+    // declare output array
+ let output = [];
+ //for loop to iterate through arary
+ for (let i = 0; i < array.length; i++) {
+    //if result of invoking func is falsy, put array[i] into output
+    if (!func(array[i], i, array)) {
+        output.push(array[i]);
+    }
+    //return output;
+ } return output;
+}
 
 /** _.partition
 * Arguments:
@@ -279,6 +313,22 @@ return output;
 }
 */
 
+_.partition = function(array, func) {
+    //declare truthyArray that equals an empty array
+    let truthyArray = [];
+    //declare falsyArray that equals an empty array
+    let falsyArray = [];
+    //for loop to iterate through array
+    for (let i = 0; i < array.length; i++) {
+        //if calling func on each element in array is true, push array[i] into truthyArray, else push array[i] into falsyArray
+        if(func(array[i], i, array)) {
+            truthyArray.push(array[i]);
+        } else {
+            falsyArray.push(array[i]);
+        }
+        //return array with truthyArray and falsyArray inside
+    } return [truthyArray, falsyArray];
+}
 
 /** _.map
 * Arguments:
@@ -296,6 +346,24 @@ return output;
 *   _.map([1,2,3,4], function(e){return e * 2}) -> [2,4,6,8]
 */
 
+_.map = function(collection, func) {
+    //declare output array
+    var output = [];
+    //if collection is an array, iterate through collection and push return value of each func call into output
+    if (Array.isArray(collection)) {
+        for (let i = 0; i < collection.length; i++) {
+           output.push(func(collection[i], i, collection));
+            
+        }
+    }
+    //if typeof collection equals "object" and is not an array, iterate through collection and push return value of func call into output
+    if (typeof collection === "object" && !Array.isArray(collection)) {
+        for (let keys in collection) {
+            output.push(func(collection[keys], keys, collection));
+        }
+        //return output
+    } return output;
+}
 
 /** _.pluck
 * Arguments:
