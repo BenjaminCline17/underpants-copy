@@ -384,10 +384,13 @@ E:N/A
 
 
 _.pluck = function(array, property) {
+    //declare output as an empty array
     var output = [];
+    //Used _.map function to push property into output array
   _.map(array, function(obj){
     output.push(obj[property]);
   })
+  //return output;
   return output;
 }
 
