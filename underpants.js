@@ -414,7 +414,41 @@ _.pluck = function(array, property) {
 *   _.every([2,4,6], function(e){return e % 2 === 0}) -> true
 *   _.every([1,2,3], function(e){return e % 2 === 0}) -> false
 */
+/*
+I: function takes in a collection and a function
+O: return true if return value of calling function for every element is true, return false if one element is false, and return true if every element is truth or false if every element is falsy if function is not provided
+C:N/A
+E: Function doesn't return a boolean, function is not given
+*/
+_.every = function(collection, func) {
+    //if collection is an array, use for loop to iterate through collection
+    if (Array.isArray(collection)) {
+        for (let i = 0; i < collection.length; i++){
+            //if func exists and func(collection[i], i, collection) is false, return false
+            if(func && !func(collection[i], i, collection)) {
+                return false;
+            } 
+        }
+    } //if typeof collection equals "object" and collection is not an array, use for in loop to iterate through collection
+    if (typeof collection === "object" && !Array.isArray(collection)){
+        for (let keys in collection) {
+            //if func exists and func(collection[keys], keys, collection) is not true, return false
+            if (func && !func(collection[keys], keys, collection)){
+                return false;
+            }
+        }
+    } //if func does not exist, use for loop to iterate through collection
+    if(!func){
+        for(let i = 0; i < collection.length; i++) {
+            //if current value of collection is false, return false
+            if (!collection[i]) {
+                return false;
+            }
+        }
+        //return true otherwise
+    } return true;
 
+}
 
 /** _.some
 * Arguments:
