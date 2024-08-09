@@ -514,6 +514,22 @@ _.some = function(collection, func) {
 *   _.reduce([1,2,3], function(previousSum, currentValue, currentIndex){ return previousSum + currentValue }, 0) -> 6
 */
 
+_.reduce = function(array, func, seed) {
+    let result;
+    if (seed === undefined){
+        result = array[0];
+        for (let i = 1; i < array.length; i++){
+            result = func(result, array[i], i, array);
+        }
+    }
+    else {
+        result = seed;
+        for (let i = 0; i < array.length; i++) {
+            result = func(result, array[i], i, array);
+        }
+    }
+    return result;
+}
 
 /** _.extend
 * Arguments:
@@ -529,6 +545,20 @@ _.some = function(collection, func) {
 *   _.extend(data, {b:"two"}); -> data now equals {a:"one",b:"two"}
 *   _.extend(data, {a:"two"}); -> data now equals {a:"two"}
 */
+
+/*
+I:Function takes in two objects and potentially more
+O: Should extend the data of the first object
+C:N/A
+E:N/A
+*/
+_.extend = function(...objs) {
+let object1 = {};
+    for (let obj of objs) {
+        object1 = {...obj};
+    }
+    return object1;
+}
 
 //////////////////////////////////////////////////////////////////////
 // DON'T REMOVE THIS CODE ////////////////////////////////////////////
