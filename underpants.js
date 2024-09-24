@@ -182,11 +182,14 @@ _.indexOf = function(array, value){
 */
 
 _.contains = function(array, value) {
+    //declare result as a false value
+    let result = false;
     //use a for loop to iterate through array
     for (let i = 0; i < array.length; i++){
         //use ternary operator to determine if array contains value or not
-       return array[i] === value ? true : false;
+       result = array[i] === value ? true : result;
     }
+    return result;
 }
 
 /** _.each
