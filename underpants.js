@@ -20,7 +20,9 @@ var _ = {};
 *   _.identity(5) === 5
 *   _.identity({a: "b"}) === {a: "b"}
 */
-
+_.identity = function(value){
+return value;
+};
 
 /** _.typeOf
 * Arguments:
@@ -42,6 +44,33 @@ var _ = {};
 * _.typeOf([1,2,3]) -> "array"
 */
 
+_.typeOf = function(value) {
+    //if value is an array
+    if (Array.isArray(value)){
+        return "array";
+    }//if value is an null
+    if (value === null) {
+        return "null";
+    } //if value is a string
+    if (typeof value === "string"){
+        return "string";
+    } //if value is a number
+    if (typeof value === "number"){
+        return "number";
+    } //if value is a boolean
+    if (typeof value === "boolean"){
+        return "boolean";
+    } //if value is a object
+    if (typeof value === "object"){
+        return "object";
+    } //if value is undefined
+    if (typeof value === "undefined"){
+        return "undefined";
+    } //if value is a function
+    if (typeof value === "function"){
+        return "function";
+    }
+}
 
 /** _.first
 * Arguments:
@@ -61,6 +90,19 @@ var _ = {};
 *   _.first(["a", "b", "c"], 2) -> ["a", "b"]
 */
 
+_.first = function(array, number){
+//if array parameter is not an array, return an empty array
+ if (!Array.isArray(array)){
+    return [];
+ } //if number is negative, return an empty array
+ if (number < 0){
+    return [];
+ } //if there isn't a number, return the first element in the array
+ if (!number){
+    return array[0];
+ } //return an array that starts from the first element and goes till the number
+ return array.slice(0, number);
+}
 
 /** _.last
 * Arguments:
@@ -80,6 +122,22 @@ var _ = {};
 *   _.last(["a", "b", "c"], 2) -> ["b", "c"]
 */
 
+_.last = function(array, number){
+//if array parameter isn't an array, return an empty array
+if (!Array.isArray(array)){
+    return [];
+} //if number is negative return an empty array
+if (number < 0){
+    return [];
+} //if there isn't a number, return the last element in the array
+if (!number){
+    return array[array.length - 1];
+} //if number is greater than the length of the array, return the whole array
+if (array.length < number){
+    return array;
+} //return the last number items of the array
+return array.slice(-number);
+}
 
 /** _.indexOf
 * Arguments:
@@ -97,6 +155,16 @@ var _ = {};
 *   _.indexOf(["a","b","c"], "d") -> -1
 */
 
+_.indexOf = function(array, value){
+    //use for loop to iterate through array
+    for (let i = 0; i < array.length; i++){
+        //if current index equals value, return index
+        if (array[i] === value){
+            return i;
+        }
+        //if value is not found in array, return -1
+    } return -1;
+}
 
 /** _.contains
 * Arguments:
@@ -113,6 +181,13 @@ var _ = {};
 *   _.contains([1,"two", 3.14], "two") -> true
 */
 
+_.contains = function(array, value) {
+    //use a for loop to iterate through array
+    for (let i = 0; i < array.length; i++){
+        //use ternary operator to determine if array contains value or not
+       return array[i] === value ? true : false;
+    }
+}
 
 /** _.each
 * Arguments:
@@ -209,6 +284,22 @@ var _ = {};
 *   _.map([1,2,3,4], function(e){return e * 2}) -> [2,4,6,8]
 */
 
+_.map = function(collection, func){
+    const output = [];
+    //if collection is an array
+    if (Array.isArray(collection)){
+        //loop over collection array
+        for (let i = 0; i < collection.length; i++){
+            let result = func(collection[i], i, collection);
+            output.push(result);
+        }
+    } else { //else collection is an object
+        //loop over collection object
+        for (let keys in collection){
+            output.push(func(collection[keys], keys, collection));
+        }
+    } return output;
+}
 
 /** _.pluck
 * Arguments:
