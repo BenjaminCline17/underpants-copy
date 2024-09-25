@@ -207,7 +207,22 @@ _.contains = function(array, value) {
 *   _.each(["a","b","c"], function(e,i,a){ console.log(e)});
 *      -> should log "a" "b" "c" to the console
 */
-
+_.each = function(collection, func){
+    //use an if statement to see if collection is an array
+    if (Array.isArray(collection)){
+        //use a for loop to iterate through collection array
+        for (let i = 0; i < collection.length; i++){
+            //log the result of calling func on the element, index, and collection array
+            console.log(func(collection[i], i, collection));
+        }
+    } else { //else collection is an object
+        //use a for in loop to iterate through <collection> object
+        for (let keys in collection){
+            //log the result of calling func on the property's value, it's key, and collection object
+            console.log(func(collection[keys], keys, collection));
+        }
+    }
+}
 
 /** _.unique
 * Arguments:
@@ -219,6 +234,17 @@ _.contains = function(array, value) {
 *   _.unique([1,2,2,4,5,6,5,2]) -> [1,2,4,5,6]
 */
 
+_.unique = function(array){
+    //declare output as an empty array
+    var output = [];
+    //use a for loop to iterate through the array
+    for (let i = 0; i < array.length; i++){
+        //use if statement to determine if output doesn't include the first index of a first occurrence
+        if (_.indexOf(array, i) && !output.includes(array[i])){
+            output.push(array[i]) //push the result into output
+        }
+    } return output; //return output
+}
 
 /** _.filter
 * Arguments:
@@ -236,6 +262,11 @@ _.contains = function(array, value) {
 *   use _.each in your implementation
 */
 
+_.filter = function(array, func) {
+    //declare an empty array
+    var output = [];
+    
+}
 
 /** _.reject
 * Arguments:
@@ -337,6 +368,21 @@ _.map = function(collection, func){
 *   _.every([1,2,3], function(e){return e % 2 === 0}) -> false
 */
 
+_.every = function(collection, func){
+    if (Array.isArray(collection)){ //if collection is an array
+        if (!func) { //Determine if func is not provided
+
+        } else { //func was provided
+
+        }
+    } else { //if collection is an object
+        if (!func) { //Determine if func is not provided
+
+        } else { //func was provided
+
+        }
+    }
+}
 
 /** _.some
 * Arguments:
