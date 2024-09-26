@@ -321,6 +321,24 @@ _.reject = function(array, func){
 }
 */
 
+_.partition = function(array, func){
+    //declare an empty output array, empty truthy array, and empty falsy array
+    let output = [];
+    let truthy = [];
+    let falsy = [];
+    //use for loop to iterate through input array
+    for (let i = 0; i < array.length; i++){
+        if(func(array[i], i, array) === true){ //if result of invoking func on each <array> argument is true
+            //push values that pass into truthy array
+            truthy.push(array[i])
+        } else { //else if false
+            //push values that fail into falsy array
+            falsy.push(array[i]);
+        }
+        //push truthy and falsy array into output array after loop finishes
+    } output.push(truthy, falsy);
+    return output; //return output;
+}
 
 /** _.map
 * Arguments:
@@ -366,6 +384,13 @@ _.map = function(collection, func){
 *   _.pluck([{a: "one"}, {a: "two"}], "a") -> ["one", "two"]
 */
 
+_.pluck = function(array, property){
+    //return _.map function with the input array passed in as an argument and a function with an obj parameter passed in as an argument
+return _.map(array, function(obj){
+    //return the properties of the obj input
+return obj[property];
+});  
+}
 
 /** _.every
 * Arguments:
@@ -391,15 +416,46 @@ _.map = function(collection, func){
 _.every = function(collection, func){
     if (Array.isArray(collection)){ //if collection is an array
         if (!func) { //Determine if func is not provided
-
+            //use a for loop to iterate through collection
+            for (let i = 0; i < collection.length; i++){
+                //if current element of collection is truthy, return true, else return false
+                if (collection[i]){
+                    return true;
+                } else {
+                    return false;
+                }
+            }
         } else { //func was provided
-
+            //use a for loop to iterate through collection array
+            for (let i = 0; i < collection.length; i++){
+                //use a if statement to see if every test passes the function, if it doesn't return false
+                if (!func(collection[i], i, collection) === true){ 
+                    return false;
+                } //if false is never returned when the loop is finished, return true
+            } return true;
         }
     } else { //if collection is an object
         if (!func) { //Determine if func is not provided
-
+            //use a for in loop to iterate through collection
+            for (let keys in collection){
+                //if current element is truty, return true, else return false
+                if (collection[keys]){
+                    return true;
+                } else {
+                    return false;
+                }
+            }
         } else { //func was provided
-
+            //use a for in loop to iterate through collection object
+            for (let keys in collection){
+                //use a if statement to see if the return value of calling func on every element is true
+                if (func(collection[keys], keys, collection) === true){
+                    //if so, return true
+                    return true;
+                } else { //else return false
+                    return false;
+                }
+            }
         }
     }
 }
@@ -425,6 +481,52 @@ _.every = function(collection, func){
 *   _.some([1,2,3], function(e){return e % 2 === 0}) -> true
 */
 
+_.some = function(collection, func){
+    if (Array.isArray(collection)){ //if collection is an array
+        if (!func) { //Determine if func is not provided
+            //use a for loop to iterate through collection
+            for (let i = 0; i < collection.length; i++){
+                //if current element of collection is truthy, return true, else return false
+                if (collection[i]){
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        } else { //func was provided
+            //use a for loop to iterate through collection array
+            for (let i = 0; i < collection.length; i++){
+                //use a if statement to see if every test passes the function, if it does return true
+                if (func(collection[i], i, collection) === true){ 
+                    return true;
+                } //if true is never returned when the loop is finished, return false
+            } return false;
+        }
+    } else { //if collection is an object
+        if (!func) { //Determine if func is not provided
+            //use a for in loop to iterate through collection
+            for (let keys in collection){
+                //if current element is truty, return true, else return false
+                if (collection[keys]){
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        } else { //func was provided
+            //use a for in loop to iterate through collection object
+            for (let keys in collection){
+                //use a if statement to see if the return value of calling func on every element is true
+                if (func(collection[keys], keys, collection) === true){
+                    //if so, return true
+                    return true;
+                } else { //else return false
+                    return false;
+                }
+            }
+        }
+    }
+}
 
 /** _.reduce
 * Arguments:
@@ -445,6 +547,27 @@ _.every = function(collection, func){
 *   _.reduce([1,2,3], function(previousSum, currentValue, currentIndex){ return previousSum + currentValue }, 0) -> 6
 */
 
+_.reduce = function(array, func, seed){
+    //declare result
+    let result;
+    //use an if statement to see if seed is undefined
+    if (seed === undefined){
+        //if seed is undefined, result equals the first element of array
+        result = array[0];
+        //use a for loop to iterate through the array
+        for (let i = 1; i < array.length; i++){
+            //set result to the result of invoking func function
+            result = func(result, array[i], i);
+        }
+    } else { //seed is provided
+        result = seed;
+        //use a for loop to iterate through the array
+        for (let i = 0; i < array.length; i++){
+            //set result to result of invoking func function
+            result = func(result, array[i], i);
+        }
+    } return result; //return result
+}
 
 /** _.extend
 * Arguments:
@@ -460,6 +583,13 @@ _.every = function(collection, func){
 *   _.extend(data, {b:"two"}); -> data now equals {a:"one",b:"two"}
 *   _.extend(data, {a:"two"}); -> data now equals {a:"two"}
 */
+
+_.extend = function(obj1, obj2, ...objs){
+    //assign the first object to itself, the second object, and any remaining objects that could exist
+    Object.assign(obj1, obj1, obj2, ...objs);
+    //return the first object
+    return obj1;
+}
 
 //////////////////////////////////////////////////////////////////////
 // DON'T REMOVE THIS CODE ////////////////////////////////////////////
