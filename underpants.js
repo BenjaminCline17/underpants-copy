@@ -265,7 +265,15 @@ _.unique = function(array){
 _.filter = function(array, func) {
     //declare an empty array
     var output = [];
-    
+    //use a for loop to iterate through the input array
+    for (let i = 0; i < array.length; i++){
+        //use if statement to check if each element passes a test
+        if (func(array[i], i, array) === true){
+            //push current element into output if each element passes
+            output.push(array[i]);
+        }
+        //return output after the loop is finished
+    } return output;
 }
 
 /** _.reject
@@ -281,6 +289,18 @@ _.filter = function(array, func) {
 *   _.reject([1,2,3,4,5], function(e){return e%2 === 0}) -> [1,3,5]
 */
 
+_.reject = function(array, func){
+    //declare an empty array
+    var output = [];
+    //use a for loop to iterate through the input array
+    for (let i = 0; i < array.length; i++){
+        //use an if statement to check if each element passes a test
+        if (func(array[i], i, array) === false){
+            //push current element into output if each element does not pass
+            output.push(array[i]);
+        }
+    } return output; //return output after the loop finishes
+}
 
 /** _.partition
 * Arguments:
